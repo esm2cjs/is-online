@@ -1,71 +1,53 @@
-# is-online
+# @esm2cjs/is-online
 
-> Check if the internet connection is up
-
-Works in Node.js and the browser *(with a bundler)*.
-
-In the browser, there is already [`navigator.onLine`](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine.onLine), but it's useless as it only tells you if there's a local connection, and not whether the internet is accessible.
+This is a fork of https://github.com/sindresorhus/is-online, but automatically patched to support ESM **and** CommonJS, unlike the original repository.
+This fork does NOT include browser support, only Node.js.
 
 ## Install
 
-```sh
-npm install is-online
+You can use an npm alias to install this package under the original name:
+
+```
+npm i is-online@npm:@esm2cjs/is-online
+```
+
+```jsonc
+// package.json
+"dependencies": {
+    "is-online": "npm:@esm2cjs/is-online"
+}
+```
+
+but `npm` might dedupe this incorrectly when other packages depend on the replaced package. If you can, prefer using the scoped package directly:
+
+```
+npm i @esm2cjs/is-online
+```
+
+```jsonc
+// package.json
+"dependencies": {
+    "@esm2cjs/is-online": "^ver.si.on"
+}
 ```
 
 ## Usage
 
 ```js
-import isOnline from 'is-online';
+// Using ESM import syntax
+import isOnline from "@esm2cjs/is-online";
 
-console.log(await isOnline());
-//=> true
+// Using CommonJS require()
+const isOnline = require("@esm2cjs/is-online").default;
 ```
 
-## API
+> **Note:**
+> Because the original module uses `export default`, you need to append `.default` to the `require()` call.
 
-### isOnline(options?)
+For more details, please see the original [repository](https://github.com/sindresorhus/is-online).
 
-#### options
+## Sponsoring
 
-Type: `object`
+To support my efforts in maintaining the ESM/CommonJS hybrid, please sponsor [here](https://github.com/sponsors/AlCalzone).
 
-##### timeout
-
-Type: `number`\
-Default: `5000`
-
-Milliseconds to wait for a server to respond.
-
-##### ipVersion
-
-Type: `number`\
-Values: `4 | 6`\
-Default: `4`
-
-The [Internet Protocol version](https://en.wikipedia.org/wiki/Internet_Protocol#Version_history) to use.
-
-This is an advanced option that is usually not necessary to be set, but it can prove useful to specifically assert IPv6 connectivity.
-
-## How it works
-
-The following checks are run in parallel:
-
-- Retrieve [icanhazip.com](https://github.com/major/icanhaz) (or [ipify.org](https://www.ipify.org) as fallback) via HTTPS.
-- Query `myip.opendns.com` and `o-o.myaddr.l.google.com` DNS entries. *(Node.js only)*
-- Retrieve Apple's Captive Portal test page (this is what iOS does). *(Node.js only)*
-
-When any check succeeds, the returned Promise is resolved to `true`.
-
-## Proxy support
-
-To make it work through proxies, you need to set up [`global-agent`](https://github.com/gajus/global-agent).
-
-## Maintainers
-
-- [Sindre Sorhus](https://github.com/sindresorhus)
-- [silverwind](https://github.com/silverwind)
-
-## Related
-
-- [is-online-cli](https://github.com/sindresorhus/is-online-cli) - CLI for this module
-- [is-reachable](https://github.com/sindresorhus/is-reachable) - Check if servers are reachable
+To support the original author of the module, please sponsor [here](https://github.com/sindresorhus/is-online).
