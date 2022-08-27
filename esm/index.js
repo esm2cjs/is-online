@@ -1,8 +1,8 @@
 import os from 'node:os';
-import got, {CancelError} from 'got';
-import publicIp from 'public-ip';
-import pAny from 'p-any';
-import pTimeout from 'p-timeout';
+import got, {CancelError} from '@esm2cjs/got';
+import publicIp from '@esm2cjs/public-ip';
+import pAny from '@esm2cjs/p-any';
+import pTimeout from '@esm2cjs/p-timeout';
 
 const appleCheck = options => {
 	const gotPromise = got('https://captive.apple.com/hotspot-detect.html', {

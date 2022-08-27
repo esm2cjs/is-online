@@ -1,23 +1,23 @@
 {
-	"name": "is-online",
+	"name": "@esm2cjs/is-online",
 	"version": "10.0.0",
-	"description": "Check if the internet connection is up",
+	"description": "Check if the internet connection is up. This is a fork of sindresorhus/is-online, but with CommonJS support.",
 	"license": "MIT",
-	"repository": "sindresorhus/is-online",
-	"funding": "https://github.com/sponsors/sindresorhus",
+	"repository": "esm2cjs/is-online",
+	"funding": "https://github.com/sponsors/AlCalzone",
 	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "https://sindresorhus.com"
+		"name": "Dominic Griesel",
+		"email": "d.griesel@gmx.net"
 	},
 	"contributors": [
 		"silverwind <me@silverwind.io> (github.com/silverwind)"
 	],
-	"type": "module",
 	"exports": {
-		"types": "./index.d.ts",
-		"node": "./index.js",
-		"default": "./browser.js"
+		".": {
+			"import": "./esm/index.js",
+			"require": "./cjs/index.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"engines": {
 		"node": ">=14.16"
@@ -26,9 +26,8 @@
 		"test": "xo && ava && tsd"
 	},
 	"files": [
-		"index.js",
-		"browser.js",
-		"index.d.ts"
+		"cjs/",
+		"esm/"
 	],
 	"keywords": [
 		"browser",
@@ -53,10 +52,10 @@
 		"disconnected"
 	],
 	"dependencies": {
-		"got": "^12.1.0",
-		"p-any": "^4.0.0",
-		"p-timeout": "^5.1.0",
-		"public-ip": "^5.0.0"
+		"@esm2cjs/got": "^12.1.0",
+		"@esm2cjs/p-any": "^4.0.0",
+		"@esm2cjs/p-timeout": "^5.1.0",
+		"@esm2cjs/public-ip": "^5.0.0"
 	},
 	"devDependencies": {
 		"ava": "^4.3.0",
@@ -65,7 +64,34 @@
 	},
 	"ava": {
 		"files": [
-			"test.js"
+			"test.mjs"
+		]
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"main": "cjs/index.js",
+	"module": "esm/index.js",
+	"types": "esm/index.d.ts",
+	"typesVersions": {
+		"*": {
+			"esm/index.d.ts": [
+				"esm/index.d.ts"
+			],
+			"cjs/index.d.ts": [
+				"esm/index.d.ts"
+			],
+			"*": [
+				"esm/*"
+			]
+		}
+	},
+	"xo": {
+		"ignores": [
+			"cjs",
+			"test.mjs",
+			"**/*.test-d.ts",
+			"**/*.d.ts"
 		]
 	}
 }
